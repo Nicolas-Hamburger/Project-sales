@@ -7,12 +7,13 @@
     <title>Barnickham</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
     <header class="navbar">
-        <h1><i class="fa-solid fa-ring"></i> Barnickham</h1>
+        <h1>Barnickham</h1>
 
         <ul class="navbar-nav flex-row d-md-none">
             <li class="nav-item text-nowrap">
@@ -77,8 +78,55 @@
                     </div>
                 </div>
             </div>
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <h1>jaja</h1>
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-5">
+                <!-- <div class="container-title">
+                    <h2>Inicio</h2>
+                </div> -->
+                <div class="row mt-3">
+                    <div class="col-lg-6 my-2">
+                        <h3>Inventario</h3>
+                        <p>Observa tus productos disponibles, da un vistazo rápido.</p>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Id Producto</th>
+                                    <th>Nombre</th>
+                                    <th>Cantidad</th>
+                                    <th>Stock</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>01241</td>
+                                    <td>Arroz</td>
+                                    <td>25</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>12314</td>
+                                    <td>Maní de Chocolate</td>
+                                    <td>30</td>
+                                    <td>24</td>
+                                </tr>
+                                <tr>
+                                    <td>45123</td>
+                                    <td>Jabón de Baño</td>
+                                    <td>22</td>
+                                    <td>50</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-lg-6 my-2">
+                        <h3>Ventas</h3>
+                        <p>Vista de productos totales vendios en la semana.</p>
+                        <canvas id="graficoBarras"></canvas>
+                    </div>
+                    <div class="col-lg-12 my-2">
+                        <h3>Productos</h3>
+                        <div id="productosContainer" class="row"></div>
+                    </div>
+                </div>
             </main>
         </div>
     </div>
@@ -88,6 +136,7 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/3bae500551.js" crossorigin="anonymous"></script>
+    <script src="js/app.js"></script>
 </body>
 
 </html>

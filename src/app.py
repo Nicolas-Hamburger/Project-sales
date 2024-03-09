@@ -1,28 +1,67 @@
-from flask import Flask
-from flask_mysqldb import MySQL
-
-from config import config
+from flask import Flask, jsonify, request
+import pymysql.cursors
 
 app = Flask(__name__)
 
-conexion = MySQL(app)
+def connection_mysql():
+    connection = pymysql.connect(
+        host='localhost',
+        user='root',
+        password='junior1924',
+        database='python',
+        cursorclass=pymysql.cursors.DictCursor)
+    return connection
 
-@app.route('/cursos')
-def list_cursos():
-    try:
-        cursor=conexion.connection.cursor()
-        sql = "SELECT codigo, nombre, creditos FROM curso"
-        cursor.execute(sql)
-        datos = cursor.fetchall()
-        print(datos)
-        return "Cursos listados"
-    except Exception as ex:
-        return 'Error'
+@app.route("/usuarios", methods=["GET", "POST"])
+def usuarios():
+    if request.method == "POST":
+        data = request.get_json()
+        connection = connection_mysql()
 
-def pg_no_encontrada(error):
-    return '<h1>La página a la que deseas acceder no existe.</h1>'
+        with connection:
+            with connection.cursor() as cursor:
+                sql = "INSERT INTO users (email, password) VALUES (%s, %s)"
+                cursor.execute(sql, (data['email'], data['password']))
 
-if __name__ == "__main__":
-    app.config.from_object(config['development'])
-    app.register_error_handler(404, pg_no_encontrada)
-    app.run()
+            connection.commit()
+
+        return jsonify({'message': 'Creación exitosa'})
+    elif request.method == "GET":
+        connection = connection_mysql()
+
+        with connection:
+            with connection.cursor() as cursor:
+                sql = "SELECT * FROM users"
+                cursor.execute(sql)
+                result = cursor.fetchall()
+
+        return jsonify(result)
+
+@app.route("/usuarios/<int:user_id>", methods=["PUT", "DELETE"])
+def usuario(user_id):
+    if request.method == "PUT":
+        data = request.get_json()
+        connection = connection_mysql()
+
+        with connection:
+            with connection.cursor() as cursor:
+                sql = "UPDATE users SET email = %s, password = %s WHERE id = %s"
+                cursor.execute(sql, (data['email'], data['password'], user_id))
+
+            connection.commit()
+
+        return jsonify({'message': 'Actualización exitosa'})
+    elif request.method == "DELETE":
+        connection = connection_mysql()
+
+        with connection:
+            with connection.cursor() as cursor:
+                sql = "DELETE FROM users WHERE id = %s"
+                cursor.execute(sql, (user_id,))
+
+            connection.commit()
+
+        return jsonify({'message': 'Eliminación exitosa'})
+
+if __name__ == '__main__':
+    app.run(debug=True)

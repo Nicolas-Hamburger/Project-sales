@@ -105,3 +105,15 @@ main .card h3{
     font-size: 20px;
     font-weight: 600;
 }
+
+.container-photo {
+    background-image: url(../assets/bg-session/background.webp);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 0 -130px;
+    height: 100vh;
+}
+
+.container-login {
+    width: 80%;
+}
